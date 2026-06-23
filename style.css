@@ -535,3 +535,155 @@ body::after {
         font-size: 0.95em;
     }
 }
+
+/* ==================== DESKTOP 2-COLUMN DASHBOARD LAYOUT & GLOW EFFECTS ==================== */
+.dashboard-grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.dashboard-left-col {
+    display: none;
+}
+.dashboard-right-col {
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .dashboard-grid-container {
+        display: grid !important;
+        grid-template-columns: 28% 72% !important;
+        gap: 15px !important;
+        align-items: center !important;
+        position: relative !important;
+        margin-top: 10px !important;
+        transform: translateX(-50px) !important;
+    }
+    .dashboard-left-col {
+        display: flex !important;
+        align-items: flex-end !important;
+        justify-content: flex-start !important;
+        height: 100% !important;
+        position: relative !important;
+        z-index: 1 !important;
+    }
+    .dashboard-char-img {
+        width: 135% !important;
+        max-width: 440px !important;
+        height: auto !important;
+        object-fit: contain !important;
+        transform: translateY(20px) scale(0.95) translateX(90px) !important;
+        z-index: 1 !important;
+        pointer-events: none !important;
+        filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.5)) !important;
+    }
+    .dashboard-right-col {
+        width: 100% !important;
+        z-index: 5 !important;
+        position: relative !important;
+    }
+    .cards-container {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 15px !important;
+        margin-left: -120px !important;
+        z-index: 6 !important;
+        position: relative !important;
+    }
+    .cards-container .group-card {
+        aspect-ratio: 1 / 1 !important;
+        height: auto !important;
+        padding: 20px 15px !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+    }
+    .cards-container .group-card i.main-icon {
+        font-size: 2.8em !important;
+        margin-bottom: 2px !important;
+    }
+    .cards-container .group-card h2 {
+        font-size: 1.3em !important;
+    }
+    .cards-container .group-card p {
+        font-size: 0.8em !important;
+        line-height: 1.4 !important;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .cards-container .group-card .action-btn {
+        font-size: 0.85em !important;
+        padding: 8px 16px !important;
+        margin-top: 5px !important;
+    }
+    .materi-video-container {
+        max-width: 480px !important;
+    }
+    .materi-btn-glow, .video-btn-glow {
+        font-size: 0.88em !important;
+        height: 52px !important;
+        padding: 8px 12px !important;
+    }
+}
+
+/* Glow Effects for Buttons */
+.materi-btn-glow {
+    box-shadow: 0 0 10px rgba(0, 208, 132, 0.15) !important;
+    border: 1px solid rgba(0, 208, 132, 0.25) !important;
+    transition: all 0.3s ease !important;
+}
+.materi-btn-glow:hover {
+    box-shadow: 0 0 20px rgba(0, 208, 132, 0.6) !important;
+    border-color: #00D084 !important;
+    background: rgba(0, 208, 132, 0.15) !important;
+    transform: translateY(-2px) !important;
+}
+
+.video-btn-glow {
+    box-shadow: 0 0 10px rgba(0, 208, 132, 0.15) !important;
+    border: 1px solid rgba(0, 208, 132, 0.25) !important;
+    transition: all 0.3s ease !important;
+}
+.video-btn-glow:hover {
+    box-shadow: 0 0 20px rgba(0, 208, 132, 0.6) !important;
+    border-color: #00D084 !important;
+    background: rgba(0, 208, 132, 0.15) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Glow Effects and Custom Background for Dashboard Cards */
+.card-visual-glow {
+    background: #1F2937 !important;
+    border: 2px solid rgba(0, 240, 255, 0.25) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 15px rgba(0, 240, 255, 0.08) !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+.card-visual-glow:hover {
+    transform: translateY(-10px) scale(1.02) !important;
+    border-color: #00f0ff !important;
+    box-shadow: 0 20px 40px rgba(0, 240, 255, 0.25), 0 0 25px rgba(0, 240, 255, 0.15) !important;
+}
+
+.card-auditory-glow {
+    background: #1F2937 !important;
+    border: 2px solid rgba(255, 102, 0, 0.25) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 15px rgba(255, 102, 0, 0.08) !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+.card-auditory-glow:hover {
+    transform: translateY(-10px) scale(1.02) !important;
+    border-color: #ff6600 !important;
+    box-shadow: 0 20px 40px rgba(255, 102, 0, 0.25), 0 0 25px rgba(255, 102, 0, 0.15) !important;
+}
+
+.card-kinesthetic-glow {
+    background: #1F2937 !important;
+    border: 2px solid rgba(255, 0, 204, 0.25) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 15px rgba(255, 0, 204, 0.08) !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+.card-kinesthetic-glow:hover {
+    transform: translateY(-10px) scale(1.02) !important;
+    border-color: #ff00cc !important;
+    box-shadow: 0 20px 40px rgba(255, 0, 204, 0.25), 0 0 25px rgba(255, 0, 204, 0.15) !important;
+}

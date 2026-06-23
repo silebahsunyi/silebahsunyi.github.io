@@ -41,47 +41,61 @@
                 </button>
             </div>
         </div>
-        <header class="site-header">
-            <div style="margin-bottom: 12px;"><span style="background: linear-gradient(135deg, #00d2ff, #ff00cc); color: white; padding: 6px 16px; border-radius: 20px; font-weight: 800; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(255, 0, 204, 0.3); display: inline-block;">Kelas 1 • Bab 1: Sumber Bunyi</span></div>
-            <h1><i class="fa-solid fa-music"></i> Sumber Bunyi</h1>
-            <p>Selamat datang di misi pembelajaran interaktif! Silakan pilih kartu sesuai dengan kelompok gaya belajarmu
-                hari ini.</p>
-            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 8px; width: 100%; max-width: 360px; margin-left: auto; margin-right: auto; box-sizing: border-box; padding: 0 10px;">
-                <div onclick="tampilInfo('materi')" style="flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 8px 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.72em; font-weight: bold; color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s; text-align: center; height: 48px; box-sizing: border-box; line-height: 1.25;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)';">
-                    <span style="font-size: 1.2em; flex-shrink: 0;">📖</span> <span>MATERI<br>SUMBER BUNYI</span>
+        <!-- Main Grid Container (Grid 2 Kolom untuk Layar Besar/Desktop) -->
+        <div class="dashboard-grid-container" style="max-width: 1200px; margin: 40px auto 0 auto; padding: 0 20px; box-sizing: border-box; position: relative;">
+            
+            <!-- Kolom Kiri: Ilustrasi Karakter (30% Lebar Desktop) -->
+            <div class="dashboard-left-col">
+                <img src="https://images2.imgbox.com/03/29/AweGdswV_o.png" alt="Karakter Pendukung Belajar" class="dashboard-char-img">
+            </div>
+            
+            <!-- Kolom Kanan: Header & Kartu Pilihan (70% Lebar Desktop) -->
+            <div class="dashboard-right-col">
+                <header class="site-header" style="text-align: center; margin-bottom: 30px;">
+                    <div style="margin-bottom: 12px;">
+                        <span style="background: linear-gradient(135deg, #00d2ff, #ff00cc); color: white; padding: 6px 16px; border-radius: 20px; font-weight: 800; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(255, 0, 204, 0.3); display: inline-block;">KELAS 1 • BAB 1 SUMBER BUNYI</span>
+                    </div>
+                    <h1 style="font-size: 3em; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #00D084; margin-bottom: 10px; text-shadow: 0 10px 20px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span style="color: #00D084;">🎵</span> SUMBER BUNYI
+                    </h1>
+                    <p style="font-size: 1.1em; color: #cbd5e1; max-width: 700px; margin: 0 auto; line-height: 1.5;">
+                        Selamat datang di misi pembelajaran interaktif! Silakan pilih kartu sesuai dengan kelompok gaya belajarmu hari ini.
+                    </p>
+                    <div class="materi-video-container" style="margin-top: 15px; display: flex; justify-content: center; gap: 8px; width: 100%; max-width: 360px; margin-left: auto; margin-right: auto; box-sizing: border-box; padding: 0 10px;">
+                        <div onclick="tampilInfo('materi')" class="materi-btn-glow" style="flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 20px; padding: 8px 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.72em; font-weight: bold; color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s; text-align: center; height: 48px; box-sizing: border-box; line-height: 1.25;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)';">
+                            <span style="font-size: 1.2em; flex-shrink: 0;">📖</span> <span>MATERI<br>SUMBER BUNYI</span>
+                        </div>
+                        <div onclick="tampilInfo('video')" class="video-btn-glow" style="flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 20px; padding: 8px 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.72em; font-weight: bold; color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s; text-align: center; height: 48px; box-sizing: border-box; line-height: 1.25;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)';">
+                            <span style="font-size: 1.2em; flex-shrink: 0;">🎥</span> <span>VIDEO<br>SUMBER BUNYI</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="cards-container">
+                    <!-- Kartu Visual -->
+                    <div class="group-card card-visual" onclick="bukaHalaman('visual-view')">
+                        <i class="fa-solid fa-eye main-icon"></i>
+                        <h2 style="color: var(--visual)">Kelompok Visual</h2>
+                        <p>Mengerjakan tantangan dengan mengamati gambar dan kartu visual.</p>
+                        <span class="action-btn" style="background: var(--visual); width: 100%; margin-top: 10px;">MULAI MISI</span>
+                    </div>
+
+                    <!-- Kartu Auditori -->
+                    <div class="group-card card-auditory" onclick="bukaHalaman('auditori-view')">
+                        <i class="fa-solid fa-headphones-simple main-icon"></i>
+                        <h2 style="color: var(--auditory)">Kelompok Auditori</h2>
+                        <p>Mengerjakan tantangan dengan mendengarkan rekaman dan simulasi suara.</p>
+                        <span class="action-btn" style="background: var(--auditory); width: 100%; margin-top: 10px;">MULAI MISI</span>
+                    </div>
+
+                    <!-- Kartu Kinestetik -->
+                    <div class="group-card card-kinesthetic" onclick="bukaHalaman('kinestetik-view')">
+                        <i class="fa-solid fa-hand-pointer main-icon"></i>
+                        <h2 style="color: var(--kinesthetic)">Kelompok Kinestetik</h2>
+                        <p>Mengerjakan tantangan dengan aktivitas fisik menyusun dan menggeser benda.</p>
+                        <span class="action-btn" style="background: var(--kinesthetic); width: 100%; margin-top: 10px;">MULAI MISI</span>
+                    </div>
                 </div>
-                <div onclick="tampilInfo('video')" style="flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 8px 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.72em; font-weight: bold; color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s; text-align: center; height: 48px; box-sizing: border-box; line-height: 1.25;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)';">
-                    <span style="font-size: 1.2em; flex-shrink: 0;">🎥</span> <span>VIDEO<br>SUMBER BUNYI</span>
-                </div>
-            </div>
-        </header>
-
-        <div class="cards-container">
-            <!-- Kartu Visual -->
-            <div class="group-card card-visual" onclick="bukaHalaman('visual-view')">
-                <i class="fa-solid fa-eye main-icon"></i>
-                <h2 style="color: var(--visual)">Kelompok Visual</h2>
-                <p>Mengerjakan tantangan dengan mengamati gambar dan kartu visual.</p>
-                <span class="action-btn" style="background: var(--visual); width: 100%; margin-top: 10px;">Mulai
-                    Misi</span>
-            </div>
-
-            <!-- Kartu Auditori -->
-            <div class="group-card card-auditory" onclick="bukaHalaman('auditori-view')">
-                <i class="fa-solid fa-headphones-simple main-icon"></i>
-                <h2 style="color: var(--auditory)">Kelompok Auditori</h2>
-                <p>Mengerjakan tantangan dengan mendengarkan rekaman dan simulasi suara.</p>
-                <span class="action-btn" style="background: var(--auditory); width: 100%; margin-top: 10px;">Mulai
-                    Misi</span>
-            </div>
-
-            <!-- Kartu Kinestetik -->
-            <div class="group-card card-kinesthetic" onclick="bukaHalaman('kinestetik-view')">
-                <i class="fa-solid fa-hand-pointer main-icon"></i>
-                <h2 style="color: var(--kinesthetic)">Kelompok Kinestetik</h2>
-                <p>Mengerjakan tantangan dengan aktivitas fisik menyusun dan menggeser benda.</p>
-                <span class="action-btn" style="background: var(--kinesthetic); width: 100%; margin-top: 10px;">Mulai
-                    Misi</span>
             </div>
         </div>
     </div>
