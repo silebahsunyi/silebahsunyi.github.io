@@ -1,0 +1,537 @@
+:root {
+    /* Warna Jenuh untuk Efek Neon */
+    --primary: #00e676;
+    --visual: #00d2ff;
+    --auditory: #ff9966;
+    --kinesthetic: #ff00cc;
+    /* Latar Belakang Gradien Halus */
+    --bg-start: #0f172a;
+    --bg-end: #1e293b;
+    --glass: rgba(255, 255, 255, 0.05);
+    --border-glass: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at top, var(--bg-start) 0%, var(--bg-end) 100%);
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Partikel Latar Belakang Berkilau (Dekoratif) */
+body::before, body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.1;
+    z-index: -1;
+    animation: floatGlow 12s infinite ease-in-out alternate;
+}
+
+body::before {
+    width: 400px;
+    height: 400px;
+    top: -150px;
+    left: -150px;
+    box-shadow: 0 0 150px 80px var(--visual);
+    background: var(--visual);
+}
+
+body::after {
+    width: 350px;
+    height: 350px;
+    bottom: -100px;
+    right: -100px;
+    box-shadow: 0 0 150px 80px var(--kinesthetic);
+    background: var(--kinesthetic);
+    animation-delay: -6s;
+}
+
+@keyframes floatGlow {
+    0% { transform: translateY(0) scale(1); opacity: 0.08; }
+    100% { transform: translateY(-50px) scale(1.2); opacity: 0.15; }
+}
+
+/* Sistem View / Halaman */
+.view-page {
+    display: none;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    flex: 1;
+    animation: fadeSlideIn 0.5s ease-out forwards;
+}
+
+.view-page.active {
+    display: block;
+}
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header Website */
+.site-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.site-header h1 {
+    font-size: 3em;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #00d2ff, #00e676, #ff00cc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+    text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.site-header p {
+    font-size: 1.2em;
+    color: #cbd5e1;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* KARTU MENU BERANDA */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+    align-items: stretch;
+}
+
+.group-card {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 1;
+    height: 100%;
+}
+
+.group-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: inherit;
+    z-index: -1;
+    transition: opacity 0.3s;
+    opacity: 0;
+}
+
+.group-card i.main-icon {
+    font-size: 4em;
+    margin-bottom: 10px;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.group-card h2 {
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+.group-card p {
+    color: #94a3b8;
+    font-size: 0.95em;
+    line-height: 1.6;
+    flex-grow: 1; /* Membuat teks mengisi ruang kosong agar tombol sejajar */
+}
+
+/* Spesifik Kartu */
+.card-visual { border-bottom: 5px solid var(--visual); }
+.card-visual i.main-icon { color: var(--visual); filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.4)); }
+.card-visual:hover { box-shadow: 0 20px 40px rgba(0, 210, 255, 0.2); transform: translateY(-10px); border-color: var(--visual); }
+.card-visual:hover i.main-icon { transform: scale(1.2); }
+
+.card-auditory { border-bottom: 5px solid var(--auditory); }
+.card-auditory i.main-icon { color: var(--auditory); filter: drop-shadow(0 0 15px rgba(255, 153, 102, 0.4)); }
+.card-auditory:hover { box-shadow: 0 20px 40px rgba(255, 153, 102, 0.2); transform: translateY(-10px); border-color: var(--auditory); }
+.card-auditory:hover i.main-icon { transform: scale(1.2); }
+
+.card-kinesthetic { border-bottom: 5px solid var(--kinesthetic); }
+.card-kinesthetic i.main-icon { color: var(--kinesthetic); filter: drop-shadow(0 0 15px rgba(255, 0, 204, 0.4)); }
+.card-kinesthetic:hover { box-shadow: 0 20px 40px rgba(255, 0, 204, 0.2); transform: translateY(-10px); border-color: var(--kinesthetic); }
+.card-kinesthetic:hover i.main-icon { transform: scale(1.2); }
+
+
+/* TAMPILAN HALAMAN DETAIL */
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-glass);
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.back-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(5px);
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-5px);
+}
+
+.page-title {
+    font-size: 2em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.content-wrapper {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.content-instruction {
+    font-size: 1.1em;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #e2e8f0;
+}
+
+/* Elemen Interaktif (Sama seperti sebelumnya tapi disesuaikan) */
+.gambar-placeholder {
+    width: 100%;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    color: #00d2ff;
+    font-weight: bold;
+    border: 2px dashed rgba(0, 210, 255, 0.3);
+    overflow: hidden;
+}
+
+.gambar-placeholder img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.gambar-placeholder svg, .gambar-placeholder i {
+    width: 80px; height: 80px; fill: #00d2ff; color: #00d2ff; margin-bottom: 10px; filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.5));
+}
+
+.soal-container { margin-bottom: 30px; }
+.soal-divider { border-top: 1px solid rgba(255,255,255,0.1); margin: 30px 0; padding-top: 20px; }
+
+.action-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+.action-btn {
+    padding: 12px 35px;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    font-family: 'Poppins', sans-serif;
+}
+
+.action-btn:hover { filter: brightness(1.2); transform: translateY(-2px); }
+
+.audio-btn {
+    background-color: transparent; border: 2px solid var(--auditory); color: var(--auditory);
+    padding: 20px 40px; font-size: 1.2em; font-weight: 700; border-radius: 50px;
+    margin: 0 auto 30px auto; box-shadow: 0 0 15px rgba(255, 153, 102, 0.2);
+    display: flex; align-items: center; gap: 15px; cursor: pointer; justify-content: center;
+    width: fit-content;
+}
+
+.audio-btn:hover { background-color: var(--auditory); color: #fff; box-shadow: 0 0 30px rgba(255, 153, 102, 0.6); }
+
+.feedback {
+    margin-top: 25px; font-weight: 600; min-height: 28px; font-size: 1.1em;
+    padding: 15px; border-radius: 8px; transition: all 0.3s; text-align: center;
+    opacity: 0; transform: translateY(10px);
+}
+
+.feedback.show { opacity: 1; transform: translateY(0); background: rgba(0,0,0,0.3); }
+
+/* Pilihan Gambar Auditori */
+.choice-card-auditory {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--border-glass);
+    border-radius: 16px;
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 150px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.choice-card-auditory:hover {
+    border-color: var(--auditory);
+    box-shadow: 0 10px 30px rgba(255, 153, 102, 0.25);
+    transform: translateY(-5px);
+}
+
+.choice-card-auditory img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.choice-card-auditory:hover img {
+    transform: scale(1.1);
+}
+
+.choice-card-auditory span {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Drag & Drop Styles */
+.drag-container {
+    background: rgba(0, 0, 0, 0.2); border: 2px dashed rgba(255, 255, 255, 0.2); border-radius: 15px;
+    padding: 25px; min-height: 140px; margin-bottom: 30px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center;
+}
+
+.drag-item {
+    background: linear-gradient(135deg, rgba(255, 0, 204, 0.4), rgba(51, 51, 153, 0.4));
+    border: 2px solid var(--kinesthetic); border-radius: 12px; padding: 12px 10px;
+    cursor: grab; display: flex; flex-direction: column; align-items: center; gap: 8px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3); user-select: none; z-index: 100;
+    width: 110px;
+    text-align: center;
+}
+
+.drag-item:active { cursor: grabbing; transform: scale(0.95); }
+.drag-item img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+.drag-item span {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.drop-zones-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+
+.drop-zone {
+    background: rgba(0, 0, 0, 0.2); border: 2px dashed #64748b; border-radius: 20px;
+    min-height: 300px; padding: 20px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 15px; justify-content: center; transition: all 0.3s;
+}
+
+.drop-zone.drag-over { background: rgba(255, 0, 204, 0.1); border-color: var(--kinesthetic); box-shadow: inset 0 0 30px rgba(255, 0, 204, 0.2); }
+
+.drop-zone-title {
+    width: 100%; text-align: center; margin-top: 0; margin-bottom: 20px; padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 1.3em; font-weight: bold; letter-spacing: 1px;
+}
+
+#zone-berbunyi .drop-zone-title { color: #00e676; }
+#zone-tidak .drop-zone-title { color: #ff4b2b; }
+
+/* Pesan Kustom CSS */
+#custom-alert {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(8px);
+}
+.alert-box {
+    background: var(--bg-end); border: 2px solid var(--auditory); padding: 40px; border-radius: 20px;
+    text-align: center; box-shadow: 0 0 40px rgba(255, 153, 102, 0.4); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+.alert-box i { font-size: 4em; color: var(--auditory); margin-bottom: 20px; display: block;}
+.alert-box button {
+    margin-top: 25px; background: var(--auditory); border: none; padding: 12px 30px; border-radius: 8px;
+    color: white; font-weight: bold; cursor: pointer; font-size: 1.1em;
+}
+
+/* Badge Nomor Soal */
+.soal-badge {
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.85em;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.soal-badge-visual {
+    background: rgba(0, 210, 255, 0.15);
+    color: var(--visual);
+    border: 1px solid rgba(0, 210, 255, 0.3);
+}
+
+.soal-badge-auditory {
+    background: rgba(255, 153, 102, 0.15);
+    color: var(--auditory);
+    border: 1px solid rgba(255, 153, 102, 0.3);
+}
+
+/* Watermark Footer */
+.app-watermark {
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+    margin-top: auto; /* Menjaga footer tetap di dasar halaman/viewport */
+    z-index: 10;
+}
+
+/* Media Query untuk Optimasi HP (seperti Oppo F9) */
+@media (max-width: 600px) {
+    .view-page {
+        padding: 20px 24px; /* Jarak batas kiri dan kanan yang nyaman agar tidak terlalu dekat ke tepi layar */
+    }
+    .content-wrapper {
+        padding: 25px 12px;
+    }
+    .cards-container {
+        gap: 20px;
+        padding: 10px 0;
+    }
+    .page-title {
+        font-size: 1.5em;
+    }
+    .content-instruction {
+        font-size: 0.95em;
+        margin-bottom: 20px;
+    }
+    
+    /* Area Drag & Drop */
+    .drag-container {
+        padding: 15px 10px;
+        gap: 8px;
+        min-height: 100px;
+        margin-bottom: 20px;
+    }
+    .drag-item {
+        width: 88px;
+        padding: 8px 5px;
+        gap: 6px;
+        border-radius: 8px;
+    }
+    .drag-item img {
+        width: 40px;
+        height: 40px;
+    }
+    .drag-item span {
+        font-size: 0.72em;
+    }
+    
+    /* Area Drop */
+    .drop-zones-wrapper {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+        display: grid;
+        align-items: stretch; /* Memastikan tinggi kedua kotak selalu sama sejajar */
+    }
+    .drop-zone {
+        min-height: 250px;
+        padding: 10px 6px;
+        gap: 8px;
+        border-radius: 12px;
+    }
+    .drop-zone-title {
+        font-size: 0.9em;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+    
+    /* Tombol Cek Hasil */
+    .action-btn {
+        font-size: 1em !important;
+        padding: 12px 20px !important;
+    }
+    
+    /* Pilihan Gambar Auditori Mobile */
+    .choice-card-auditory {
+        width: 125px;
+        padding: 15px 10px;
+        gap: 8px;
+        border-radius: 12px;
+    }
+    .choice-card-auditory img {
+        width: 60px;
+        height: 60px;
+    }
+    .choice-card-auditory span {
+        font-size: 0.95em;
+    }
+}

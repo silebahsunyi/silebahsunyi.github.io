@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Sumber Bunyi</title>
+    <!-- Muat Font Modern dari Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Muat FontAwesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Polyfill untuk Touch Drag and Drop agar bisa digeser di HP/Tablet -->
+    <script src="https://unpkg.com/drag-drop-touch"></script>
+    <!-- Link CSS Eksternal -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ==================== HALAMAN BERANDA ==================== -->
+    <div id="home-view" class="view-page active" style="position: relative;">
+        <!-- Tombol Home di Pojok Kanan Atas -->
+        <div style="position: absolute; top: 10px; right: 20px; z-index: 100;">
+            <button onclick="toggleHomeMenu(event)" class="home-icon-btn" title="Menu Beranda" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2em; cursor: pointer; transition: all 0.3s; color: #fff; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);" onmouseover="this.style.background='rgba(255, 255, 255, 0.2)'; this.style.transform='scale(1.1)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='scale(1)';">
+                <i class="fa-solid fa-house"></i>
+            </button>
+            <!-- Dropdown Menu (Grid Pilihan Icon Ke Bawah) -->
+            <div id="home-dropdown-menu" style="display: none; position: absolute; top: 55px; right: 0; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; width: 120px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); backdrop-filter: blur(10px); padding: 10px; grid-template-columns: repeat(2, 1fr); gap: 10px; z-index: 101; justify-items: center; align-items: center;">
+                <button onclick="tampilInfo('petunjuk')" title="Petunjuk" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #fff; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.3em; transition: all 0.2s;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.transform='scale(1.15)';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.transform='scale(1)';">
+                    📖
+                </button>
+                <button onclick="tampilInfo('tujuan')" title="Tujuan Pembelajaran" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #fff; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.3em; transition: all 0.2s;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.transform='scale(1.15)';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.transform='scale(1)';">
+                    🎯
+                </button>
+                <button onclick="tampilInfo('pengembang')" title="Tentang Pengembang" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #fff; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.3em; transition: all 0.2s;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.transform='scale(1.15)';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.transform='scale(1)';">
+                    👩
+                </button>
+                <button onclick="tampilInfo('kontak')" title="Kontak" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #fff; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.3em; transition: all 0.2s;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.transform='scale(1.15)';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.transform='scale(1)';">
+                    📞
+                </button>
+            </div>
+        </div>
+        <header class="site-header">
+            <div style="margin-bottom: 12px;"><span style="background: linear-gradient(135deg, #00d2ff, #ff00cc); color: white; padding: 6px 16px; border-radius: 20px; font-weight: 800; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(255, 0, 204, 0.3); display: inline-block;">Kelas 1 • Bab 1: Sumber Bunyi</span></div>
+            <h1><i class="fa-solid fa-music"></i> Sumber Bunyi</h1>
+            <p>Selamat datang di misi pembelajaran interaktif! Silakan pilih kartu sesuai dengan kelompok gaya belajarmu
+                hari ini.</p>
+            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 8px; width: 100%; max-width: 360px; margin-left: auto; margin-right: auto; box-sizing: border-box; padding: 0 10px;">
+                <div onclick="tampilInfo('materi')" style="flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 8px 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.72em; font-weight: bold; color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s; text-align: center; height: 48px; box-sizing: border-box; line-height: 1.25;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)';">
+                    <span style="font-size: 1.2em; flex-shrink: 0;">📖</span> <span>MATERI<br>SUMBER BUNYI</span>
+                </div>
+                <div onclick="tampilInfo('video')" style="flex: 1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 8px 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.72em; font-weight: bold; color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s; text-align: center; height: 48px; box-sizing: border-box; line-height: 1.25;" onmouseover="this.style.background='rgba(255, 255, 255, 0.15)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.transform='translateY(0)';">
+                    <span style="font-size: 1.2em; flex-shrink: 0;">🎥</span> <span>VIDEO<br>SUMBER BUNYI</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="cards-container">
+            <!-- Kartu Visual -->
+            <div class="group-card card-visual" onclick="bukaHalaman('visual-view')">
+                <i class="fa-solid fa-eye main-icon"></i>
+                <h2 style="color: var(--visual)">Kelompok Visual</h2>
+                <p>Mengerjakan tantangan dengan mengamati gambar dan kartu visual.</p>
+                <span class="action-btn" style="background: var(--visual); width: 100%; margin-top: 10px;">Mulai
+                    Misi</span>
+            </div>
+
+            <!-- Kartu Auditori -->
+            <div class="group-card card-auditory" onclick="bukaHalaman('auditori-view')">
+                <i class="fa-solid fa-headphones-simple main-icon"></i>
+                <h2 style="color: var(--auditory)">Kelompok Auditori</h2>
+                <p>Mengerjakan tantangan dengan mendengarkan rekaman dan simulasi suara.</p>
+                <span class="action-btn" style="background: var(--auditory); width: 100%; margin-top: 10px;">Mulai
+                    Misi</span>
+            </div>
+
+            <!-- Kartu Kinestetik -->
+            <div class="group-card card-kinesthetic" onclick="bukaHalaman('kinestetik-view')">
+                <i class="fa-solid fa-hand-pointer main-icon"></i>
+                <h2 style="color: var(--kinesthetic)">Kelompok Kinestetik</h2>
+                <p>Mengerjakan tantangan dengan aktivitas fisik menyusun dan menggeser benda.</p>
+                <span class="action-btn" style="background: var(--kinesthetic); width: 100%; margin-top: 10px;">Mulai
+                    Misi</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== HALAMAN VISUAL ==================== -->
+    <div id="visual-view" class="view-page">
+        <div class="page-header">
+            <h2 class="page-title" style="color: var(--visual)"><i class="fa-solid fa-eye"></i> Misi Visual</h2>
+            <button class="back-btn" onclick="kembaliKeBeranda()"><i class="fa-solid fa-arrow-left"></i>
+                Kembali</button>
+        </div>
+
+        <div class="content-wrapper">
+            <p class="content-instruction">Perhatikan gambar-gambar di bawah ini. Benda apakah ini dan bagaimana cara
+                menghasilkan bunyinya?</p>
+
+            <!-- Form Data Diri Misi Visual -->
+            <div id="visual-form-container" class="soal-container" style="max-width: 450px; margin: 0 auto 30px auto; padding: 25px; position: relative;">
+                <button class="leaderboard-icon" onclick="bukaLeaderboard('visual')" title="Lihat Papan Skor Live" style="position: absolute; top: 15px; right: 15px; background: rgba(255, 204, 0, 0.15); border: 1px solid rgba(255, 204, 0, 0.4); border-radius: 50%; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; color: #ffcc00; cursor: pointer; transition: all 0.3s; z-index: 10;" onmouseover="this.style.transform='scale(1.1)'; this.style.background='rgba(255, 204, 0, 0.25)';" onmouseout="this.style.transform='scale(1)'; this.style.background='rgba(255, 204, 0, 0.15)';">
+                    <i class="fa-solid fa-trophy"></i>
+                </button>
+                <h3 style="text-align: center; margin-bottom: 20px; color: var(--visual); font-size: 1.4em; font-weight: bold;">Isi Data Diri</h3>
+                <div style="display: flex; flex-direction: column; gap: 15px; text-align: left; margin-bottom: 25px;">
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label for="visual-nama" style="font-weight: bold; color: #cbd5e1; font-size: 0.95em;">Nama Lengkap:</label>
+                        <input type="text" id="visual-nama" placeholder="Masukkan nama..." style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: white; font-size: 1em; outline: none; transition: border 0.3s;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label for="visual-kelas" style="font-weight: bold; color: #cbd5e1; font-size: 0.95em;">Kelas:</label>
+                        <input type="text" id="visual-kelas" placeholder="Masukkan kelas..." style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: white; font-size: 1em; outline: none; transition: border 0.3s;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label for="visual-sekolah" style="font-weight: bold; color: #cbd5e1; font-size: 0.95em;">Asal Sekolah:</label>
+                        <input type="text" id="visual-sekolah" placeholder="Masukkan asal sekolah..." style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: white; font-size: 1em; outline: none; transition: border 0.3s;">
+                    </div>
+                </div>
+                <button class="action-btn" style="background: var(--visual); width: 100%; font-size: 1.1em; font-weight: bold;" onclick="mulaiMisiVisual()">Mulai Misi</button>
+            </div>
+
+            <!-- Soal 1 -->
+            <div id="soal-visual-1" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-visual">Soal 1</span></div>
+                <div class="gambar-placeholder">
+                    <img src="https://images2.imgbox.com/c0/59/qiXfZsqn_o.png" alt="Gitar">
+                </div>
+                <div class="action-group">
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="dipetik"
+                        onclick="cekJawaban('visual-1', 'dipetik', this)">Dipetik</button>
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="dipukul"
+                        onclick="cekJawaban('visual-1', 'dipukul', this)">Dipukul</button>
+                </div>
+                <div id="feedback-visual-1" class="feedback"></div>
+            </div>
+
+            <!-- Soal 2 -->
+            <div id="soal-visual-2" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-visual">Soal 2</span></div>
+                <div class="gambar-placeholder">
+                    <img src="https://images2.imgbox.com/7a/36/NG26gWyt_o.png" alt="Drum">
+                </div>
+                <div class="action-group">
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="ditiup"
+                        onclick="cekJawaban('visual-2', 'ditiup', this)">Ditiup</button>
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="dipukul"
+                        onclick="cekJawaban('visual-2', 'dipukul', this)">Dipukul</button>
+                </div>
+                <div id="feedback-visual-2" class="feedback"></div>
+            </div>
+
+            <!-- Soal 3 -->
+            <div id="soal-visual-3" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-visual">Soal 3</span></div>
+                <div class="gambar-placeholder">
+                    <img src="https://images2.imgbox.com/17/07/ToDDKieR_o.png" alt="Lonceng">
+                </div>
+                <div class="action-group">
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="digoyangkan"
+                        onclick="cekJawaban('visual-3', 'digoyangkan', this)">Digoyangkan</button>
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="dipetik"
+                        onclick="cekJawaban('visual-3', 'dipetik', this)">Dipetik</button>
+                </div>
+                <div id="feedback-visual-3" class="feedback"></div>
+            </div>
+
+            <!-- Soal 4 -->
+            <div id="soal-visual-4" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-visual">Soal 4</span></div>
+                <div class="gambar-placeholder">
+                    <img src="https://images2.imgbox.com/5c/19/aNg2TVc8_o.png" alt="Terompet">
+                </div>
+                <div class="action-group">
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="ditiup"
+                        onclick="cekJawaban('visual-4', 'ditiup', this)">Ditiup</button>
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="dipetik"
+                        onclick="cekJawaban('visual-4', 'dipetik', this)">Dipetik</button>
+                </div>
+                <div id="feedback-visual-4" class="feedback"></div>
+            </div>
+
+            <!-- Soal 5 -->
+            <div id="soal-visual-5" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-visual">Soal 5</span></div>
+                <div class="gambar-placeholder">
+                    <img src="https://images2.imgbox.com/d1/71/qx1JlGOf_o.png" alt="Biola">
+                </div>
+                <div class="action-group">
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="digesek"
+                        onclick="cekJawaban('visual-5', 'digesek', this)">Digesek</button>
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="ditiup"
+                        onclick="cekJawaban('visual-5', 'ditiup', this)">Ditiup</button>
+                </div>
+                <div id="feedback-visual-5" class="feedback"></div>
+            </div>
+
+            <!-- Soal 6 -->
+            <div id="soal-visual-6" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-visual">Soal 6</span></div>
+                <div class="gambar-placeholder">
+                    <img src="https://images2.imgbox.com/02/24/lsgHQjvl_o.png" alt="Angklung">
+                </div>
+                <div class="action-group">
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="digoyangkan"
+                        onclick="cekJawaban('visual-6', 'digoyangkan', this)">Digoyangkan</button>
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="dipukul"
+                        onclick="cekJawaban('visual-6', 'dipukul', this)">Dipukul</button>
+                </div>
+                <div id="feedback-visual-6" class="feedback"></div>
+            </div>
+
+            <!-- Soal 7 -->
+            <div id="soal-visual-7" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-visual">Soal 7</span></div>
+                <div class="gambar-placeholder">
+                    <img src="https://images2.imgbox.com/90/15/4SKoNghb_o.png" alt="Gunungan">
+                </div>
+                <div class="action-group">
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="digoyangkan"
+                        onclick="cekJawaban('visual-7', 'digoyangkan', this)">Digoyangkan</button>
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="dipukul"
+                        onclick="cekJawaban('visual-7', 'dipukul', this)">Dipukul</button>
+                </div>
+                <div id="feedback-visual-7" class="feedback"></div>
+            </div>
+
+            <!-- Soal 8 -->
+            <div id="soal-visual-8" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-visual">Soal 8</span></div>
+                <div class="gambar-placeholder">
+                    <img src="https://images2.imgbox.com/2c/b8/gnTACPjS_o.png" alt="Darbuka">
+                </div>
+                <div class="action-group">
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="dipukul"
+                        onclick="cekJawaban('visual-8', 'dipukul', this)">Dipukul</button>
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="dipetik"
+                        onclick="cekJawaban('visual-8', 'dipetik', this)">Dipetik</button>
+                </div>
+                <div id="feedback-visual-8" class="feedback"></div>
+            </div>
+
+            <!-- Soal 9 -->
+            <div id="soal-visual-9" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-visual">Soal 9</span></div>
+                <div class="gambar-placeholder">
+                    <img src="https://images2.imgbox.com/0a/71/NSDemGqw_o.png" alt="Gong">
+                </div>
+                <div class="action-group">
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="dipukul"
+                        onclick="cekJawaban('visual-9', 'dipukul', this)">Dipukul</button>
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="digoyangkan"
+                        onclick="cekJawaban('visual-9', 'digoyangkan', this)">Digoyangkan</button>
+                </div>
+                <div id="feedback-visual-9" class="feedback"></div>
+            </div>
+
+            <!-- Soal 10 -->
+            <div id="soal-visual-10" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-visual">Soal 10</span></div>
+                <div class="gambar-placeholder">
+                    <img src="https://images2.imgbox.com/74/80/wW1ohH5T_o.png" alt="Pianika">
+                </div>
+                <div class="action-group">
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="ditiup"
+                        onclick="cekJawaban('visual-10', 'ditiup', this)">Ditiup</button>
+                    <button class="action-btn" style="background: var(--visual)" data-jawaban="dipetik"
+                        onclick="cekJawaban('visual-10', 'dipetik', this)">Dipetik</button>
+                </div>
+                <div id="feedback-visual-10" class="feedback"></div>
+            </div>
+
+            <!-- Selesai Visual -->
+            <div id="visual-selesai" class="soal-container" style="display: none; text-align: center;">
+                <i class="fa-solid fa-trophy fa-4x"
+                    style="color: gold; margin-bottom: 20px; display: block; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));"></i>
+                <h3 style="font-size: 1.8em; font-weight: 700; margin-bottom: 10px; color: var(--visual)">Misi Selesai!
+                </h3>
+                
+                <!-- Papan Nilai Hasil Akhir -->
+                <div class="score-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; margin: 20px auto; max-width: 300px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);">
+                    <div style="display: flex; justify-content: space-between; font-size: 1.1em;">
+                        <span>Jawaban Benar:</span>
+                        <span id="visual-benar-count" style="color: #a8ff78; font-weight: bold;">0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 1.1em;">
+                        <span>Jawaban Salah:</span>
+                        <span id="visual-salah-count" style="color: #ff4b2b; font-weight: bold;">0</span>
+                    </div>
+                    <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 10px; margin-top: 5px; display: flex; justify-content: space-between; font-size: 1.3em; font-weight: bold;">
+                        <span>Nilai Akhir:</span>
+                        <span id="visual-skor" style="color: #00d2ff;">0</span>
+                    </div>
+                </div>
+                <button class="action-btn" style="background: #1f5f9c; margin-top: 15px; margin-right: 10px;" onclick="unduhHasilWord()">
+                    <i class="fa-solid fa-file-word"></i> Unduh Hasil (Word)
+                </button>
+                <button class="action-btn" style="background: var(--visual); margin-top: 15px;" onclick="kembaliKeBeranda()">Kembali ke Beranda</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== HALAMAN AUDITORI ==================== -->
+    <div id="auditori-view" class="view-page">
+        <div class="page-header">
+            <h2 class="page-title" style="color: var(--auditory)"><i class="fa-solid fa-headphones-simple"></i> Misi
+                Auditori</h2>
+            <button class="back-btn" onclick="kembaliKeBeranda()"><i class="fa-solid fa-arrow-left"></i>
+                Kembali</button>
+        </div>
+
+        <div class="content-wrapper" style="text-align: center;">
+            <p class="content-instruction" style="display: none;">Tekan tombol di bawah ini untuk mendengarkan rekaman suara. Suara apakah yang
+                kamu dengar?</p>
+
+            <!-- Form Data Diri Misi Auditori -->
+            <div id="auditori-form-container" class="soal-container" style="max-width: 450px; margin: 0 auto 30px auto; padding: 25px; position: relative;">
+                <button class="leaderboard-icon" onclick="bukaLeaderboard('auditori')" title="Lihat Papan Skor Live" style="position: absolute; top: 15px; right: 15px; background: rgba(255, 204, 0, 0.15); border: 1px solid rgba(255, 204, 0, 0.4); border-radius: 50%; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; color: #ffcc00; cursor: pointer; transition: all 0.3s; z-index: 10;" onmouseover="this.style.transform='scale(1.1)'; this.style.background='rgba(255, 204, 0, 0.25)';" onmouseout="this.style.transform='scale(1)'; this.style.background='rgba(255, 204, 0, 0.15)';">
+                    <i class="fa-solid fa-trophy"></i>
+                </button>
+                <h3 style="text-align: center; margin-bottom: 20px; color: var(--auditory); font-size: 1.4em; font-weight: bold;">Isi Data Diri</h3>
+                <div style="display: flex; flex-direction: column; gap: 15px; text-align: left; margin-bottom: 25px;">
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label for="auditori-nama" style="font-weight: bold; color: #cbd5e1; font-size: 0.95em;">Nama Lengkap:</label>
+                        <input type="text" id="auditori-nama" placeholder="Masukkan nama..." style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: white; font-size: 1em; outline: none; transition: border 0.3s;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label for="auditori-kelas" style="font-weight: bold; color: #cbd5e1; font-size: 0.95em;">Kelas:</label>
+                        <input type="text" id="auditori-kelas" placeholder="Masukkan kelas..." style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: white; font-size: 1em; outline: none; transition: border 0.3s;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label for="auditori-sekolah" style="font-weight: bold; color: #cbd5e1; font-size: 0.95em;">Asal Sekolah:</label>
+                        <input type="text" id="auditori-sekolah" placeholder="Masukkan asal sekolah..." style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: white; font-size: 1em; outline: none; transition: border 0.3s;">
+                    </div>
+                </div>
+                <button class="action-btn" style="background: var(--auditory); width: 100%; font-size: 1.1em; font-weight: bold;" onclick="mulaiMisiAuditori()">Mulai Misi</button>
+            </div>
+
+            <!-- Soal 1: Peluit -->
+            <div id="soal-auditori-1" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-auditory">Soal 1</span></div>
+                <button class="audio-btn" onclick="putarSuara('peluit')">
+                    <i class="fa-solid fa-circle-play fa-2x"></i> Putar Rekaman Suara
+                </button>
+
+                <div class="action-group" style="margin-top: 30px;">
+                    <button class="choice-card-auditory" data-jawaban="peluit" onclick="cekJawaban('auditori-1', 'peluit', this)">
+                        <img src="https://img.icons8.com/color/96/whistle.png" alt="Peluit">
+                        <span>Peluit</span>
+                    </button>
+                    <button class="choice-card-auditory" data-jawaban="drum" onclick="cekJawaban('auditori-1', 'drum', this)">
+                        <img src="https://images2.imgbox.com/7a/36/NG26gWyt_o.png" alt="Drum">
+                        <span>Drum</span>
+                    </button>
+                </div>
+                <div id="feedback-auditori-1" class="feedback"></div>
+            </div>
+
+            <!-- Soal 2: Drum -->
+            <div id="soal-auditori-2" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-auditory">Soal 2</span></div>
+                <button class="audio-btn" onclick="putarSuara('drum')">
+                    <i class="fa-solid fa-circle-play fa-2x"></i> Putar Rekaman Suara
+                </button>
+
+                <div class="action-group" style="margin-top: 30px;">
+                    <button class="choice-card-auditory" data-jawaban="peluit" onclick="cekJawaban('auditori-2', 'peluit', this)">
+                        <img src="https://img.icons8.com/color/96/whistle.png" alt="Peluit">
+                        <span>Peluit</span>
+                    </button>
+                    <button class="choice-card-auditory" data-jawaban="drum" onclick="cekJawaban('auditori-2', 'drum', this)">
+                        <img src="https://images2.imgbox.com/7a/36/NG26gWyt_o.png" alt="Drum">
+                        <span>Drum</span>
+                    </button>
+                </div>
+                <div id="feedback-auditori-2" class="feedback"></div>
+            </div>
+
+            <!-- Soal 3: Angklung -->
+            <div id="soal-auditori-3" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-auditory">Soal 3</span></div>
+                <button class="audio-btn" onclick="putarSuara('angklung')">
+                    <i class="fa-solid fa-circle-play fa-2x"></i> Putar Rekaman Suara
+                </button>
+
+                <div class="action-group" style="margin-top: 30px;">
+                    <button class="choice-card-auditory" data-jawaban="angklung" onclick="cekJawaban('auditori-3', 'angklung', this)">
+                        <img src="https://images2.imgbox.com/02/24/lsgHQjvl_o.png" alt="Angklung">
+                        <span>Angklung</span>
+                    </button>
+                    <button class="choice-card-auditory" data-jawaban="peluit" onclick="cekJawaban('auditori-3', 'peluit', this)">
+                        <img src="https://img.icons8.com/color/96/whistle.png" alt="Peluit">
+                        <span>Peluit</span>
+                    </button>
+                </div>
+                <div id="feedback-auditori-3" class="feedback"></div>
+            </div>
+
+            <!-- Soal 4: Gong -->
+            <div id="soal-auditori-4" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-auditory">Soal 4</span></div>
+                <button class="audio-btn" onclick="putarSuara('gong')">
+                    <i class="fa-solid fa-circle-play fa-2x"></i> Putar Rekaman Suara
+                </button>
+
+                <div class="action-group" style="margin-top: 30px;">
+                    <button class="choice-card-auditory" data-jawaban="angklung" onclick="cekJawaban('auditori-4', 'angklung', this)">
+                        <img src="https://images2.imgbox.com/02/24/lsgHQjvl_o.png" alt="Angklung">
+                        <span>Angklung</span>
+                    </button>
+                    <button class="choice-card-auditory" data-jawaban="gong" onclick="cekJawaban('auditori-4', 'gong', this)">
+                        <img src="https://images2.imgbox.com/0a/71/NSDemGqw_o.png" alt="Gong">
+                        <span>Gong</span>
+                    </button>
+                </div>
+                <div id="feedback-auditori-4" class="feedback"></div>
+            </div>
+
+            <!-- Soal 5: Harpa -->
+            <div id="soal-auditori-5" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-auditory">Soal 5</span></div>
+                <button class="audio-btn" onclick="putarSuara('harpa')">
+                    <i class="fa-solid fa-circle-play fa-2x"></i> Putar Rekaman Suara
+                </button>
+
+                <div class="action-group" style="margin-top: 30px;">
+                    <button class="choice-card-auditory" data-jawaban="gitar" onclick="cekJawaban('auditori-5', 'gitar', this)">
+                        <img src="https://images2.imgbox.com/c0/59/qiXfZsqn_o.png" alt="Gitar">
+                        <span>Gitar</span>
+                    </button>
+                    <button class="choice-card-auditory" data-jawaban="harpa" onclick="cekJawaban('auditori-5', 'harpa', this)">
+                        <img src="https://img.icons8.com/color/96/harp.png" alt="Harpa">
+                        <span>Harpa</span>
+                    </button>
+                </div>
+                <div id="feedback-auditori-5" class="feedback"></div>
+            </div>
+
+            <!-- Soal 6: Seruling -->
+            <div id="soal-auditori-6" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-auditory">Soal 6</span></div>
+                <button class="audio-btn" onclick="putarSuara('seruling')">
+                    <i class="fa-solid fa-circle-play fa-2x"></i> Putar Rekaman Suara
+                </button>
+
+                <div class="action-group" style="margin-top: 30px;">
+                    <button class="choice-card-auditory" data-jawaban="gitar" onclick="cekJawaban('auditori-6', 'gitar', this)">
+                        <img src="https://images2.imgbox.com/c0/59/qiXfZsqn_o.png" alt="Gitar">
+                        <span>Gitar</span>
+                    </button>
+                    <button class="choice-card-auditory" data-jawaban="seruling" onclick="cekJawaban('auditori-6', 'seruling', this)">
+                        <img src="https://img.icons8.com/color/96/flute.png" alt="Seruling">
+                        <span>Seruling</span>
+                    </button>
+                </div>
+                <div id="feedback-auditori-6" class="feedback"></div>
+            </div>
+
+            <!-- Soal 7: Ketipung -->
+            <div id="soal-auditori-7" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-auditory">Soal 7</span></div>
+                <button class="audio-btn" onclick="putarSuara('ketipung')">
+                    <i class="fa-solid fa-circle-play fa-2x"></i> Putar Rekaman Suara
+                </button>
+
+                <div class="action-group" style="margin-top: 30px;">
+                    <button class="choice-card-auditory" data-jawaban="ketipung" onclick="cekJawaban('auditori-7', 'ketipung', this)">
+                        <img src="https://images2.imgbox.com/45/60/nbwXcife_o.png" alt="Ketipung">
+                        <span>Ketipung</span>
+                    </button>
+                    <button class="choice-card-auditory" data-jawaban="seruling" onclick="cekJawaban('auditori-7', 'seruling', this)">
+                        <img src="https://img.icons8.com/color/96/flute.png" alt="Seruling">
+                        <span>Seruling</span>
+                    </button>
+                </div>
+                <div id="feedback-auditori-7" class="feedback"></div>
+            </div>
+
+            <!-- Soal 8: Biola -->
+            <div id="soal-auditori-8" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-auditory">Soal 8</span></div>
+                <button class="audio-btn" onclick="putarSuara('biola')">
+                    <i class="fa-solid fa-circle-play fa-2x"></i> Putar Rekaman Suara
+                </button>
+
+                <div class="action-group" style="margin-top: 30px;">
+                    <button class="choice-card-auditory" data-jawaban="ketipung" onclick="cekJawaban('auditori-8', 'ketipung', this)">
+                        <img src="https://images2.imgbox.com/45/60/nbwXcife_o.png" alt="Ketipung">
+                        <span>Ketipung</span>
+                    </button>
+                    <button class="choice-card-auditory" data-jawaban="biola" onclick="cekJawaban('auditori-8', 'biola', this)">
+                        <img src="https://images2.imgbox.com/13/41/q6FqIF7r_o.png" alt="Biola">
+                        <span>Biola</span>
+                    </button>
+                </div>
+                <div id="feedback-auditori-8" class="feedback"></div>
+            </div>
+
+            <!-- Soal 9: Terompet -->
+            <div id="soal-auditori-9" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-auditory">Soal 9</span></div>
+                <button class="audio-btn" onclick="putarSuara('terompet')">
+                    <i class="fa-solid fa-circle-play fa-2x"></i> Putar Rekaman Suara
+                </button>
+
+                <div class="action-group" style="margin-top: 30px;">
+                    <button class="choice-card-auditory" data-jawaban="seruling" onclick="cekJawaban('auditori-9', 'seruling', this)">
+                        <img src="https://img.icons8.com/color/96/flute.png" alt="Seruling">
+                        <span>Seruling</span>
+                    </button>
+                    <button class="choice-card-auditory" data-jawaban="terompet" onclick="cekJawaban('auditori-9', 'terompet', this)">
+                        <img src="https://images2.imgbox.com/33/3f/oT5hwTL3_o.png" alt="Terompet">
+                        <span>Terompet</span>
+                    </button>
+                </div>
+                <div id="feedback-auditori-9" class="feedback"></div>
+            </div>
+
+            <!-- Soal 10: Piano -->
+            <div id="soal-auditori-10" class="soal-container" style="display: none;">
+                <div style="text-align: center;"><span class="soal-badge soal-badge-auditory">Soal 10</span></div>
+                <button class="audio-btn" onclick="putarSuara('piano')">
+                    <i class="fa-solid fa-circle-play fa-2x"></i> Putar Rekaman Suara
+                </button>
+
+                <div class="action-group" style="margin-top: 30px;">
+                    <button class="choice-card-auditory" data-jawaban="piano" onclick="cekJawaban('auditori-10', 'piano', this)">
+                        <img src="https://images2.imgbox.com/20/37/TM0OhO9p_o.png" alt="Piano">
+                        <span>Piano</span>
+                    </button>
+                    <button class="choice-card-auditory" data-jawaban="terompet" onclick="cekJawaban('auditori-10', 'terompet', this)">
+                        <img src="https://images2.imgbox.com/33/3f/oT5hwTL3_o.png" alt="Terompet">
+                        <span>Terompet</span>
+                    </button>
+                </div>
+                <div id="feedback-auditori-10" class="feedback"></div>
+            </div>
+
+            <!-- Selesai Auditori -->
+            <div id="auditori-selesai" class="soal-container" style="display: none; text-align: center;">
+                <i class="fa-solid fa-trophy fa-4x"
+                    style="color: gold; margin-bottom: 20px; display: block; filter: drop-shadow(0 0 15px rgba(255, 153, 102, 0.4));"></i>
+                <h3 style="font-size: 1.8em; font-weight: 700; margin-bottom: 10px; color: var(--auditory)">Misi Selesai!</h3>
+                
+                <!-- Papan Nilai Hasil Akhir Auditori -->
+                <div class="score-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; margin: 20px auto; max-width: 300px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);">
+                    <div style="display: flex; justify-content: space-between; font-size: 1.1em;">
+                        <span>Jawaban Benar:</span>
+                        <span id="auditori-benar-count" style="color: #a8ff78; font-weight: bold;">0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 1.1em;">
+                        <span>Jawaban Salah:</span>
+                        <span id="auditori-salah-count" style="color: #ff4b2b; font-weight: bold;">0</span>
+                    </div>
+                    <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 10px; margin-top: 5px; display: flex; justify-content: space-between; font-size: 1.3em; font-weight: bold;">
+                        <span>Nilai Akhir:</span>
+                        <span id="auditori-skor" style="color: #00d2ff;">0</span>
+                    </div>
+                </div>
+
+                <button class="action-btn" style="background: #1f5f9c; margin-top: 15px; margin-right: 10px;" onclick="unduhHasilAuditoriWord()">
+                    <i class="fa-solid fa-file-word"></i> Unduh Hasil (Word)
+                </button>
+                <button class="action-btn" style="background: var(--auditory); margin-top: 15px;" onclick="kembaliKeBeranda()">Kembali ke Beranda</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== HALAMAN KINESTETIK ==================== -->
+    <div id="kinestetik-view" class="view-page">
+        <div class="page-header">
+            <h2 class="page-title" style="color: var(--kinesthetic)"><i class="fa-solid fa-hand-pointer"></i> Misi
+                Kinestetik</h2>
+            <button class="back-btn" onclick="kembaliKeBeranda()"><i class="fa-solid fa-arrow-left"></i>
+                Kembali</button>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Form Data Diri Misi Kinestetik -->
+            <div id="kinestetik-form-container" class="soal-container" style="max-width: 450px; margin: 0 auto 30px auto; padding: 25px; position: relative;">
+                <button class="leaderboard-icon" onclick="bukaLeaderboard('kinestetik')" title="Lihat Papan Skor Live" style="position: absolute; top: 15px; right: 15px; background: rgba(255, 204, 0, 0.15); border: 1px solid rgba(255, 204, 0, 0.4); border-radius: 50%; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; color: #ffcc00; cursor: pointer; transition: all 0.3s; z-index: 10;" onmouseover="this.style.transform='scale(1.1)'; this.style.background='rgba(255, 204, 0, 0.25)';" onmouseout="this.style.transform='scale(1)'; this.style.background='rgba(255, 204, 0, 0.15)';">
+                    <i class="fa-solid fa-trophy"></i>
+                </button>
+                <h3 style="text-align: center; margin-bottom: 20px; color: var(--kinesthetic); font-size: 1.4em; font-weight: bold;">Isi Data Diri</h3>
+                <div style="display: flex; flex-direction: column; gap: 15px; text-align: left; margin-bottom: 25px;">
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label for="kinestetik-nama" style="font-weight: bold; color: #cbd5e1; font-size: 0.95em;">Nama Lengkap:</label>
+                        <input type="text" id="kinestetik-nama" placeholder="Masukkan nama..." style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: white; font-size: 1em; outline: none; transition: border 0.3s;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label for="kinestetik-kelas" style="font-weight: bold; color: #cbd5e1; font-size: 0.95em;">Kelas:</label>
+                        <input type="text" id="kinestetik-kelas" placeholder="Masukkan kelas..." style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: white; font-size: 1em; outline: none; transition: border 0.3s;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label for="kinestetik-sekolah" style="font-weight: bold; color: #cbd5e1; font-size: 0.95em;">Asal Sekolah:</label>
+                        <input type="text" id="kinestetik-sekolah" placeholder="Masukkan asal sekolah..." style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: white; font-size: 1em; outline: none; transition: border 0.3s;">
+                    </div>
+                </div>
+                <button class="action-btn" style="background: var(--kinesthetic); width: 100%; font-size: 1.1em; font-weight: bold;" onclick="mulaiMisiKinestetik()">Mulai Misi</button>
+            </div>
+
+            <!-- Gameplay Kinestetik -->
+            <div id="kinestetik-gameplay-container" style="display: none;">
+                <p class="content-instruction">Ayo bergerak! Tarik dan geser (drag & drop) gambar benda yang ada di atas ke
+                    dalam dua kotak kelompok yang tepat di bawahnya!</p>
+
+                <!-- Area Sumber -->
+                <div class="drag-container" id="source-container">
+                    <div class="drag-item" draggable="true" id="item-gitar" data-jawaban="berbunyi">
+                        <img src="https://images2.imgbox.com/c0/59/qiXfZsqn_o.png" alt="Gitar">
+                        <span>Gitar</span>
+                    </div>
+                    <div class="drag-item" draggable="true" id="item-drum" data-jawaban="berbunyi">
+                        <img src="https://images2.imgbox.com/7a/36/NG26gWyt_o.png" alt="Drum">
+                        <span>Drum</span>
+                    </div>
+                    <div class="drag-item" draggable="true" id="item-lonceng" data-jawaban="berbunyi">
+                        <img src="https://images2.imgbox.com/17/07/ToDDKieR_o.png" alt="Lonceng">
+                        <span>Lonceng</span>
+                    </div>
+                    <div class="drag-item" draggable="true" id="item-terompet" data-jawaban="berbunyi">
+                        <img src="https://images2.imgbox.com/5c/19/aNg2TVc8_o.png" alt="Terompet">
+                        <span>Terompet</span>
+                    </div>
+                    <div class="drag-item" draggable="true" id="item-biola" data-jawaban="berbunyi">
+                        <img src="https://images2.imgbox.com/d1/71/qx1JlGOf_o.png" alt="Biola">
+                        <span>Biola</span>
+                    </div>
+                    <div class="drag-item" draggable="true" id="item-penghapus" data-jawaban="tidak">
+                        <img src="https://img.icons8.com/color/96/eraser.png" alt="Penghapus">
+                        <span>Penghapus</span>
+                    </div>
+                    <div class="drag-item" draggable="true" id="item-bantal" data-jawaban="tidak">
+                        <img src="https://img.icons8.com/color/96/pillow.png" alt="Bantal">
+                        <span>Bantal</span>
+                    </div>
+                    <div class="drag-item" draggable="true" id="item-buku" data-jawaban="tidak">
+                        <img src="https://img.icons8.com/color/96/open-book.png" alt="Buku">
+                        <span>Buku</span>
+                    </div>
+                    <div class="drag-item" draggable="true" id="item-pensil" data-jawaban="tidak">
+                        <img src="https://img.icons8.com/color/96/pencil.png" alt="Pensil">
+                        <span>Pensil</span>
+                    </div>
+                    <div class="drag-item" draggable="true" id="item-tas" data-jawaban="tidak">
+                        <img src="https://img.icons8.com/color/96/backpack.png" alt="Tas Sekolah">
+                        <span>Tas Sekolah</span>
+                    </div>
+                </div>
+
+                <!-- Area Drop -->
+                <div class="drop-zones-wrapper">
+                    <div class="drop-zone" id="zone-berbunyi" data-zona="berbunyi">
+                        <div class="drop-zone-title"><i class="fa-solid fa-volume-high"></i> Benda Berbunyi</div>
+                    </div>
+                    <div class="drop-zone" id="zone-tidak" data-zona="tidak">
+                        <div class="drop-zone-title"><i class="fa-solid fa-volume-xmark"></i> Tidak Berbunyi</div>
+                    </div>
+                </div>
+
+                <button class="action-btn"
+                    style="background: var(--kinesthetic); width: 100%; font-size: 1.2em; padding: 15px;"
+                    onclick="cekDragDrop()">Cek Hasil Pengelompokan</button>
+                <div id="feedback-kinestetik" class="feedback"></div>
+            </div>
+
+            <!-- Selesai Kinestetik -->
+            <div id="kinestetik-selesai" class="soal-container" style="display: none; text-align: center;">
+                <i class="fa-solid fa-trophy fa-4x"
+                    style="color: gold; margin-bottom: 20px; display: block; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));"></i>
+                <h3 style="font-size: 1.8em; font-weight: 700; margin-bottom: 10px; color: var(--kinesthetic)">Misi Selesai!</h3>
+                
+                <!-- Papan Nilai Hasil Akhir Kinestetik -->
+                <div class="score-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; margin: 20px auto; max-width: 300px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);">
+                    <div style="display: flex; justify-content: space-between; font-size: 1.1em;">
+                        <span>Jawaban Benar:</span>
+                        <span id="kinestetik-benar-count" style="color: #a8ff78; font-weight: bold;">0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 1.1em;">
+                        <span>Jawaban Salah:</span>
+                        <span id="kinestetik-salah-count" style="color: #ff4b2b; font-weight: bold;">0</span>
+                    </div>
+                    <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 10px; margin-top: 5px; display: flex; justify-content: space-between; font-size: 1.3em; font-weight: bold;">
+                        <span>Nilai Akhir:</span>
+                        <span id="kinestetik-skor" style="color: #00d2ff;">0</span>
+                    </div>
+                </div>
+
+                <button class="action-btn" style="background: #1f5f9c; margin-top: 15px; margin-right: 10px;" onclick="unduhHasilKinestetikWord()">
+                    <i class="fa-solid fa-file-word"></i> Unduh Hasil (Word)
+                </button>
+                <button class="action-btn" style="background: var(--kinesthetic); margin-top: 15px;" onclick="kembaliKeBeranda()">Kembali ke Beranda</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Watermark -->
+    <footer class="app-watermark">
+        <i class="fa-solid fa-copyright"></i> Aplikasi Sunyi (Sumber Bunyi) Created By Fudak Winduko, SH. M.Pd.
+    </footer>
+
+    <!-- Modal Leaderboard Live -->
+    <div id="leaderboard-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 9999; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
+        <div class="modal-content" style="background: rgba(20, 25, 40, 0.95); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; width: 90%; max-width: 950px; height: 85%; display: flex; flex-direction: column; padding: 20px; box-sizing: border-box; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+            <!-- Tombol Tutup -->
+            <button onclick="tutupLeaderboard()" style="position: absolute; top: 15px; right: 15px; background: rgba(255, 255, 255, 0.1); border: none; border-radius: 50%; width: 32px; height: 32px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1em; transition: background 0.2s;" onmouseover="this.style.background='rgba(255, 255, 255, 0.2)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.1)';">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <h3 style="margin-top: 0; margin-bottom: 15px; color: #ffcc00; font-size: 1.4em; display: flex; align-items: center; gap: 10px; font-family: sans-serif;">
+                <i class="fa-solid fa-trophy"></i> Papan Skor Live (Leaderboard)
+            </h3>
+            
+            <!-- Wrapper Iframe agar responsif -->
+            <div style="flex-grow: 1; border-radius: 8px; overflow: hidden; background: #ffffff; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <iframe id="leaderboard-iframe" src="about:blank" style="width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Informasi Menu (Petunjuk, Tujuan, Pengembang, Kontak) -->
+    <div id="info-modal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 9999; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
+        <div class="modal-content" style="background: rgba(20, 25, 40, 0.95); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; width: 90%; max-width: 600px; display: flex; flex-direction: column; padding: 25px; box-sizing: border-box; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: left;">
+            <!-- Tombol Tutup -->
+            <button onclick="tutupInfoModal()" style="position: absolute; top: 15px; right: 15px; background: rgba(255, 255, 255, 0.1); border: none; border-radius: 50%; width: 32px; height: 32px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1em; transition: background 0.2s;" onmouseover="this.style.background='rgba(255, 255, 255, 0.2)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.1)';">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <h3 id="info-modal-title" style="margin-top: 0; margin-bottom: 20px; color: #ff9966; font-size: 1.5em; display: flex; align-items: center; gap: 10px; font-family: 'Poppins', sans-serif; font-weight: bold;">
+                <!-- Diisi Dinamis -->
+            </h3>
+            
+            <!-- Konten Dinamis -->
+            <div id="info-modal-body" style="color: #cbd5e1; font-size: 1.05em; line-height: 1.6; max-height: 400px; overflow-y: auto; padding-right: 5px; font-family: 'Poppins', sans-serif;">
+                <!-- Diisi Dinamis -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Alert Box untuk Suara -->
+    <div id="custom-alert">
+        <div class="alert-box">
+            <i class="fa-solid fa-volume-high"></i>
+            <h3>Sedang Memutar Suara...</h3>
+            <p id="custom-alert-text" style="margin: 15px 0; color: #cbd5e1;">"Priiiit! Priiiit!"</p>
+            <button onclick="tutupSuara()">Selesai Mendengar</button>
+        </div>
+    </div>
+
+    <!-- Link JS Eksternal -->
+    <script src="script.js"></script>
+</body>
+</html>
